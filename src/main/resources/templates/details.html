@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Details</title>
+    </head>
+    <body>
+
+        <h1>Your details</h1>
+        <p>Name: <span th:utext="${details.name}">xxx</span> </p>
+        <p>Address: <span th:utext="${details.address}">xxx</span> </p> 
+        <p></p>
+        <div th:if="${showDetails} == false">
+        <form action="#" th:action="@{/showadditional}" method="POST">
+            <input type="submit" name="showAdditional" value="Show additional information"/>
+            <input type="hidden" name="name" th:value="${details.name}" />
+        </form>
+        </div>
+        
+        <div th:if="${showDetails} == true">
+        <form action="#" th:action="@{/updateadditional}" method="POST">
+            <p><label for="additional"> Additional information:</label></p>
+            <p><span th:utext="${additional}">xxx</span> </p> 
+            <p>Edit text here if you want:</p>
+            <p>
+                <textarea name="additional" id="additional" rows="15" cols="80" th:utext="${additional}">
+                </textarea>
+                <input type="hidden" name="name" th:value="${details.name}"/>
+            </p>
+             <p><input type="submit" value="Update" /></p> 
+        </form>
+        </div>
+        
+        <hr/>    
+        <p>Change password:</p>
+        <form action="#" th:action="@{/changepw}" method="POST">
+            <p><label for="name">Old Password</label>: <input type="password" name="oldpassword" id="oldpassword"/></p>
+            <p><label for="password">New Password</label>: <input type="password" name="newpassword" id="newpassword"/></p>
+            <input type="hidden" name="name" th:value="${details.name}"/>
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+        <p></p>
+    </body>
+</html>
